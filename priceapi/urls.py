@@ -21,3 +21,6 @@ urlpatterns = [
     path('products/', include('products.urls')),
     path('admin/', admin.site.urls),
 ]
+
+handler404 = 'errors.views.get404error'
+handler500 = 'errors.views.get500error'
