@@ -125,7 +125,7 @@ def getCompanyProductBestPrice(requests, company_name, product_name):
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
-    cur_products = collection.find({"Company": company_name, "Product": product_name}, {"_id": 0, "Company": 1, "Product": 1, "Location": 1, "Price": 1, "Priceper": 1}).sort([["Date", pymongo.DESCENDING], ["Price", pymongo.ASCENDING]]).limit(1)
+    cur_products = collection.find({"Company": company_name, "Product": product_name}, {"_id": 0, "Company": 1, "Product": 1, "Location": 1, "Price": 1, "Priceper": 1}).sort([["Price", pymongo.ASCENDING], ["Date", pymongo.DESCENDING]]).limit(1)
     for d in cur_products:
         json_return = d
     return JsonResponse(json_return, safe=False,json_dumps_params={'ensure_ascii':False, 'indent': 2})
