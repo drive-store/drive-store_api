@@ -7,6 +7,9 @@
 1. [Zoom on the API](#zoom-on-the-api)
    1. [General](#general)
    1. [Configuration](#configuration)
+   1. [Dependencies](#dependencies)
+   1. [Contexts available](#contexts-available)
+      1. [Path `/companies`](#path-companies)
 1. [Dependencies](#dependencies)
 1. [Run the app](#run-the-app)
    1. [Quickstart](#quickstart)
@@ -48,7 +51,7 @@ You can find a quick sight of the Data Journey below.
 
 Quick description of each step :
 * Scraper : Catches product prices,
-* Database : Stores product prices,
+* Database : Stores product prices, Database is MongoDB,
 * Api : Provides REST Api to process/read Product Prices,
 * Gui : Offers a interface to interact with the Api.
 
@@ -63,17 +66,108 @@ The API application only requests the database to process on product prices from
 
 The API is RESTful and follow the norm.
 
+The NoSQL database used is MongoDB.
+
 ### Configuration
 
 All the application configuration is stored in the `conf/` directory.
+
+While dev is starting database is hard-coded to localhost.
 
 ## Dependencies
 
 Code run from Visual Studio Code 2017 with Python and C++ environements configured. Python version selected is python-3.6 because of dependencies with scrapy package (not compatible with python-3.7 yet).
 
+MongoDB database is used.
+
 Required python libs :
 * `pywin32` (Visual Studio)
 * `pymongo`
+
+
+## Contexts available
+
+### Path `/companies`
+
+These are all available methods provided for the context `/companies`:
+
+```
+/companies/
+```
+* Method: GetCompanies
+* Description: List the companies
+
+```
+/companies/<company_name>
+```
+* Method: getCompanyByName
+* Description: Show the company informations
+
+```
+/companies/<company_name>/products
+```
+* Method: getCompanyProducts
+* Description: List the products of the company
+
+```
+/companies/<company_name>/products/<product_name>
+```
+* Method: getCompanyProductByName
+* Description: Show the product informations
+
+```
+/companies/<company_name>/products/<product_name>/best-price
+```
+* Method: getCompanyProductBestPrice
+* Description: Show the company location to get best price for the product
+
+```
+/companies/<company_name>/products/<product_name>/locations
+```
+* Method: getCompanyProductLocations
+* Description: List the company locations where to find the product
+
+```
+/companies/<company_name>/products/<product_name>/locations/<location_name>
+```
+* Method: getCompanyProductLocationByName
+* Description: Show the product informations for the company location
+
+```
+/companies/<company_name>/products/<product_name>/locations/<location_name>/price-history
+```
+* Method: getCompanyProductLocationPriceHistory
+* Description: Show the product price history for the company location
+
+```
+/companies/<company_name>/locations
+```
+* Method: getCompanyLocations
+* Description: List the company locations
+
+```
+/companies/<company_name>/locations/<location_name>
+```
+* Method: getCompanyLocationByName
+* Description: Show the information for the company location
+
+```
+/companies/<company_name>/locations/<location_name>/products
+```
+* Method: getCompanyLocationProducts
+* Description: List the products for the company location
+
+```
+/companies/<company_name>/locations/<location_name>/products/<product_name>
+```
+* Method: getCompanyLocationProductByName
+* Description: Show the product informations for the company location
+
+```
+/companies/<company_name>/locations/<location_name>/products/<product_name>/price-history
+```
+* Method: getCompanyLocationPriceHistory
+* Description: Show the product price history for the company location
 
 
 ## Run the app
