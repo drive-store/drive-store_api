@@ -13,7 +13,7 @@ def index(request):
 
 # http://localhost:8000/companies
 def getCompanies(requests):
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
@@ -32,7 +32,7 @@ def getCompanyByName(requests, company_name):
 # http://localhost:8000/companies/Auchan/products
 def getCompanyProducts(requests, company_name):
     json_return = []
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
@@ -68,7 +68,7 @@ def getCompanyProducts(requests, company_name):
 # http://localhost:8000/companies/Auchan/products/Jardin%20Bio%20pur%20jus%20de%20citron%20vert%2025cl
 def getCompanyProductByName(requests, company_name, product_name):
     json_return = []
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
@@ -121,7 +121,7 @@ def getCompanyProductByName(requests, company_name, product_name):
 # http://localhost:8000/companies/Auchan/products/Jardin%20Bio%20pur%20jus%20de%20citron%20vert%2025cl/best-price
 def getCompanyProductBestPrice(requests, company_name, product_name):
     json_return = []
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
@@ -133,7 +133,7 @@ def getCompanyProductBestPrice(requests, company_name, product_name):
 # http://localhost:8000/companies/Auchan/products/Jardin%20Bio%20pur%20jus%20de%20citron%20vert%2025cl/locations
 def getCompanyProductLocations(requests, company_name, product_name):
     json_return = []
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
@@ -146,7 +146,7 @@ def getCompanyProductLocations(requests, company_name, product_name):
 # http://localhost:8000/companies/Auchan/products/Jardin%20Bio%20pur%20jus%20de%20citron%20vert%2025cl/locations/Englos
 def getCompanyProductLocationByName(requests, company_name, product_name, location_name):
     json_return = []
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
@@ -159,7 +159,7 @@ def getCompanyProductLocationByName(requests, company_name, product_name, locati
 # http://localhost:8000/companies/Auchan/products/Jardin%20Bio%20pur%20jus%20de%20citron%20vert%2025cl/locations/Englos/price-history
 def getCompanyProductLocationPriceHistory(requests, company_name, product_name, location_name):
     json_return = []
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
@@ -172,7 +172,7 @@ def getCompanyProductLocationPriceHistory(requests, company_name, product_name, 
 # http://localhost:8000/companies/Auchan/locations
 def getCompanyLocations(requests, company_name):
     json_return = []
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
@@ -192,7 +192,7 @@ def getCompanyLocationByName(requests, company_name, location_name):
 # http://localhost:8000/companies/Auchan/locations/Englos/products
 def getCompanyLocationProducts(requests, company_name, location_name):
     json_return = []
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
@@ -230,7 +230,7 @@ def getCompanyLocationProducts(requests, company_name, location_name):
 # http://localhost:8000/companies/Auchan/locations/Englos/products/Jardin%20Bio%20pur%20jus%20de%20citron%20vert%2025cl
 def getCompanyLocationProductByName(requests, company_name, location_name, product_name):
     json_return = []
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
@@ -243,7 +243,7 @@ def getCompanyLocationProductByName(requests, company_name, location_name, produ
 # http://localhost:8000/companies/Auchan/locations/Englos/products/Jardin%20Bio%20pur%20jus%20de%20citron%20vert%2025cl/price-history
 def getCompanyLocationPriceHistory(requests, company_name, location_name, product_name):
     json_return = []
-    client = MongoClient("localhost", 27017)
+    client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
