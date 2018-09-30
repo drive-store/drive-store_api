@@ -175,7 +175,7 @@ These are all available methods provided for the context `/companies`:
 ### Quickstart
 
 ```shell
-django-admin runserver 8080
+python manage.py runserr 0.0.0.0:80
 ```
 
 ## Production eligibility
