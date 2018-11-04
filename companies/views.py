@@ -6,7 +6,7 @@ import pymongo
 from pymongo import MongoClient
 
 from datetime import *
-import io, json
+import os, io, json
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -18,20 +18,38 @@ def getCompanies(requests):
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
     cur_companies = collection.find({}, {"_id": 0, "Company": 1}).distinct("Company")
-    json_data = cur_companies
-    return JsonResponse(json_data, safe=False, json_dumps_params={'ensure_ascii':False, 'indent': 2})
+    
+    json_actions = []
+    for company in cur_companies:
+        json_actions.append(requests.build_absolute_uri() + company)
+
+    json_return = {
+        "self": requests.build_absolute_uri(),
+        "parent": os.path.split(requests.build_absolute_uri()[:-1])[0] + "/",
+        "actions": json_actions,
+        "data": cur_companies,
+    }
+
+    return JsonResponse(json_return, safe=False, json_dumps_params={'ensure_ascii':False, 'indent': 2})
 
 # http://localhost:8000/companies/Auchan
 def getCompanyByName(requests, company_name):
+    json_actions = []
+    for action in ["locations", "products"]:
+        json_actions.append(requests.build_absolute_uri() + "/" + action)
+
     json_return = {
-        "Company": company_name,
-        "actions": ["locations", "products"]
+        "self": requests.build_absolute_uri(),
+        "parent": os.path.split(requests.build_absolute_uri()[:-1])[0],
+        "actions": json_actions,
+        "data": company_name,
     }
     return JsonResponse(json_return, safe=False,json_dumps_params={'ensure_ascii':False, 'indent': 2})
 
 # http://localhost:8000/companies/Auchan/products
 def getCompanyProducts(requests, company_name):
-    json_return = []
+    json_data = []
+
     client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
@@ -62,12 +80,21 @@ def getCompanyProducts(requests, company_name):
     ])
     for d in cur_products:
         d["_id"]["Date"] = d["Date"]
-        json_return.append(d["_id"])
+        json_data.append(d["_id"])
+
+    json_return = {
+        "self": requests.build_absolute_uri(),
+        "parent": os.path.split(requests.build_absolute_uri()[:-1])[0],
+        "actions": requests.build_absolute_uri() + "/<product_name>",
+        "data": json_data,
+    }
+
     return JsonResponse(json_return, safe=False,json_dumps_params={'ensure_ascii':False, 'indent': 2})
 
 # http://localhost:8000/companies/Auchan/products/Jardin%20Bio%20pur%20jus%20de%20citron%20vert%2025cl
 def getCompanyProductByName(requests, company_name, product_name):
-    json_return = []
+    json_data = []
+
     client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
@@ -115,19 +142,39 @@ def getCompanyProductByName(requests, company_name, product_name):
     for d in cur_products:
         print(d)
         d["_id"]["Date"] = d["Date"]
-        json_return.append(d["_id"])
+        json_data.append(d["_id"])
+
+
+    json_actions = []
+    for action in ["best-price"]:
+        json_actions.append(requests.build_absolute_uri() + "/" + action)
+
+    json_return = {
+        "self": requests.build_absolute_uri(),
+        "parent": os.path.split(requests.build_absolute_uri()[:-1])[0],
+        "actions": json_actions,
+        "data": json_data,
+    }
+
     return JsonResponse(json_return, safe=False,json_dumps_params={'ensure_ascii':False, 'indent': 2})
 
 # http://localhost:8000/companies/Auchan/products/Jardin%20Bio%20pur%20jus%20de%20citron%20vert%2025cl/best-price
 def getCompanyProductBestPrice(requests, company_name, product_name):
-    json_return = []
     client = MongoClient("ds141872.mlab.com", 41872)
     db = client['auchan-products']
     db.authenticate("scrapy59", "scrapy59")
     collection = db['products']
     cur_products = collection.find({"Company": company_name, "Product": product_name}, {"_id": 0, "Company": 1, "Product": 1, "Location": 1, "Price": 1, "Priceper": 1}).sort([["Price", pymongo.ASCENDING], ["Date", pymongo.DESCENDING]]).limit(1)
     for d in cur_products:
-        json_return = d
+        json_data = d
+    
+    json_return = {
+        "self": requests.build_absolute_uri(),
+        "parent": os.path.split(requests.build_absolute_uri()[:-1])[0],
+        "actions": [],
+        "data": json_data,
+    }
+
     return JsonResponse(json_return, safe=False,json_dumps_params={'ensure_ascii':False, 'indent': 2})
 
 # http://localhost:8000/companies/Auchan/products/Jardin%20Bio%20pur%20jus%20de%20citron%20vert%2025cl/locations
